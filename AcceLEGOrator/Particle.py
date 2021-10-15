@@ -40,6 +40,5 @@ class Proton(Particle):
 
     def __init__(self):
         super(Proton, self).__init__(Constants.pmass,
-                                     Constants.pmass,
                                      1.0,
                                      'Proton')
