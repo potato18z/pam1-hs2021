@@ -1,0 +1,23 @@
+## latex temporary files
+*.aux
+*.out
+*.log
+*.toc
+*.nav
+*.snm
+*.gz
+*.fdb_latexmk
+*.fls
+*.dvi
+*.bbl
+*.blg
+*.xdv
+*~    
+
+## mac
+.DS_Store
+
+## python
+.ipynb_checkpoints/
+__pycache__/
+
