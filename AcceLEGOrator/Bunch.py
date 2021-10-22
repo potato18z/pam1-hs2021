@@ -25,7 +25,7 @@ class Bunch(object):
     particles : array of (6, N)
         the 6-vectors of N particles
     ptype : Particle
-        a specific type of particle, a class inherited from the Particle class
+        a specific type of particle, an instance inherited from the Particle class
     ekin : array of (N,)
         kinetic energy of all particles
 
@@ -47,7 +47,7 @@ class Bunch(object):
                        'z': 4, "pz": 5}
 
         self.particles = None   # (x, px, y, py, z, pz)
-        self.ptype     = None   # particle type
+        self.ptype     = None   # particle type, instance of class Particle
         self.ekin      = None   # array, kinetic energy of every particle
 
 
@@ -100,5 +100,6 @@ class Bunch(object):
         info = sign + '\n'\
                + 'Bunch information:\n' \
                + '         #particles:\t\t' + str(len(self.ekin)) + '\n'\
-               + self.ptype + sign
+               + '          particle type:\t\t' +self.ptype.pname + '\n'\
+               + sign
         return info

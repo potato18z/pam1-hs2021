@@ -5,10 +5,6 @@
 # Additional maps need to inherit from it.
 
 from abc import abstractmethod
-
-from AcceLEGOrator import Physics, Constants
-import AcceLEGOrator.Parameter as p
-
 import numpy as np
 
 class Map(object):

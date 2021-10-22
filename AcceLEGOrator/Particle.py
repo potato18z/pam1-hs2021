@@ -16,8 +16,8 @@ class Particle(object):
         particle mass in MeV /c^2
     charge : float
         particle charge in e
-    ptype : Particle
-        a specific type of particle, a class inherited from the Particle class
+    pname : str
+        a string specifying particle type
 
     Methods
     -------
@@ -25,13 +25,13 @@ class Particle(object):
         construct a formatted string of particle information
     """
 
-    def __init__(self, mass, charge, ptype):
+    def __init__(self, mass, charge, pname):
         self.mass = mass        # MeV / c^2
         self.charge = charge    # e
-        self.ptype = ptype      # string specifying type
+        self.pname = pname      # string specifying type
 
     def __str__(self):
-        info =   '           particle:\t\t' + self.ptype + '\n'\
+        info =   '           particle:\t\t' + self.pname + '\n'\
                + '             * charge:\t\t' + str(self.charge * Constants.echarge) + ' C\n'\
                + '             *   mass:\t\t' + str(self.mass) + ' MeV/c^2\n'
         return info

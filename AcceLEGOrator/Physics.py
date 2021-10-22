@@ -10,9 +10,9 @@ import numpy as np
 class Physics:
     # return the relativistic factor
     # @param ekin is the kinetic energy in MeV
-    # @param epot is the particle rest mass energy in MeV
-    def getGamma(ekin, epot):
-        return ekin / epot + 1.0
+    # @param mass is the particle mass in MeV/c^2
+    def getGamma(ekin, mass):
+        return ekin / mass + 1.0
 
     # return beta ( velocity / clight)
     # @param gamma is the relativistic factor
