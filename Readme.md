@@ -1,6 +1,17 @@
 # Repository for ETH HS 2021 PAM I course
 If you prefer to run the notebooks locally, it is recommended to create a virtual environment. Please perform subsequent instructions.
 
+## Clone the repository
+Go to a prefered place and run
+```bash
+$ git clone https://github.com/potato18z/pam1-hs2021.git
+```
+Then go inside the repository, run
+```bash
+$ git pull
+```
+to keep updated every week.
+
 ## Virtual Python environment
 You need to install [Python3](https://www.python.org/) first.
 ### Install the ```pyAcceLEGOrator```(any name you like) environment
