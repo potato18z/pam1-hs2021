@@ -84,7 +84,7 @@ class Bunch(object):
             an array of (N,), one specific coordinate of all particles
         """
 
-        return self.particles[self.__dict[key], :].flatten()
+        return np.asarray(self.particles[self.__dict[key], :]).flatten()
 
 
     def __str__(self):
