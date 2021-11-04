@@ -19,6 +19,8 @@ class Map(object):
         return '\n'
 
     def __mul__(self, other):
+        """Transfer matrix acting on state vectors.
+        """
         return self.R * other
 
     def __rmul__(self, other):

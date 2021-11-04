@@ -1,7 +1,7 @@
 # Author:      Matthias Frey
 #              Sichen Li
 # Created:     28. August 2016
-# Updated:     15. October 2021
+# Updated:     03. November 2021
 #
 # Python naming convention:
 #   All functions and variables that are given with two
@@ -9,6 +9,7 @@
 #   private member functions, respectively, variables.
 
 import numpy as np
+from copy import copy, deepcopy
 
 from AcceLEGOrator.Distribution import *
 from AcceLEGOrator.Particle import *
@@ -103,3 +104,25 @@ class Bunch(object):
                + '          particle type:\t\t' +self.ptype.pname + '\n'\
                + sign
         return info
+
+    def __deepcopy__(self, memo):
+        """Custom deep copy method
+        To run this method:
+        from copy import deepcopy
+        bunch1 = deepcopy(bunch)
+
+        check:
+        https://docs.python.org/3/library/copy.html
+        https://stackoverflow.com/a/15774013
+
+        Returns
+        -------
+        result
+            a deep copy of the original instance
+        """
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+        for k, v in self.__dict__.items():
+            setattr(result, k, deepcopy(v, memo))
+        return result
