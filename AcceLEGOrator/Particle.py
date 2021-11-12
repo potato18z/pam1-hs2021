@@ -42,3 +42,10 @@ class Proton(Particle):
         super(Proton, self).__init__(Constants.pmass,
                                      1.0,
                                      'Proton')
+
+class Electron(Particle):
+
+    def __init__(self):
+        super(Electron, self).__init__(Constants.emass,
+                                       -1.0,
+                                       'Electron')
