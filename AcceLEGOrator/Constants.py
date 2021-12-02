@@ -22,3 +22,4 @@ class Constants:
     tau        = codata.value('tau mass energy equivalent in MeV')          # MeV / c^2
     triton     = codata.value('triton mass energy equivalent in MeV')       # MeV / c^2
     alpha      = codata.value('triton mass energy equivalent in MeV')       # MeV / c^2
+    epsilon0   = codata.value('electric constant')                          # F m^-1

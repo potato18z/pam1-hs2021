@@ -190,7 +190,30 @@ class Dipole(Map):
         return Dipole(length, self.__b0,
                       self.__phi, self.scale)
 
+# ------------------------------------------------------------------------
+# Dipole as Rotation
+# ------------------------------------------------------------------------
+class DipoleRot(Map):
 
+    def __init__(self, phi):
+        self.phi = phi
+        cs = np.cos(phi)
+        s  = np.sin(phi)
+        #beta_0  = Physics.getBeta(p.gamma_0)
+    #    ibet = 1.0 / beta_0
+
+        R = np.matrix([[cs,   s,  0,  0,  0,  (1 - cs)],
+                       [-s,   cs, 0,  s,  0,  s],
+                       [-s,   0,  1, 0,  0,  0],
+                       [0,    -s, 0,  1, 0,  0],
+                       [-s,  -(1-cs),  0,  0,  1,  0],
+                       [0,    0,  0,  0,  0,  1]])
+
+        super(DipoleRot, self).__init__(R, 0.0)
+
+
+    def __str__(self):
+        return 'DipoleRot(phi = ' + str(self.phi) + ')\n'
 # ------------------------------------------------------------------------
 # Quadrupole
 # ------------------------------------------------------------------------
@@ -277,3 +300,24 @@ class ThinQuadrupole(Map):
 
     def get(self, length):
         return ThinQuadrupole(self.f)
+
+class FODO(Map):
+
+    def __init__(self, length, f):
+
+        self.f = f
+
+        RQ1 = ThinQuadrupole(2.0 * f)
+        RD  = Drift(length)
+        RQ2 = ThinQuadrupole(-f)
+
+        R = RQ1 * RD * RQ2 * RD * RQ1
+
+        super(FODO, self).__init__(R, 2*length)
+
+    def __str__(self):
+        return 'FODO(L = ' + str(self.length) \
+               + ' [m], f = ' + str(self.f) + ' )\n'
+
+    def get(self, length):
+        return FODO(length, self.f)

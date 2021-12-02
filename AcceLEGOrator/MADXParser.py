@@ -136,7 +136,7 @@ class MADXParser:
 
                 elif 'quadrupole' in line:
 
-                    obj = re.match(self.quad_pattern, line)
+                    obj = re.match(self.__quad_pattern, line)
 
                     # first tag is name
                     self.__quadrupole['name'] = obj.group(1)
@@ -337,7 +337,7 @@ class MADXParser:
 
             particle = self.getParticle()
 
-            epot = particle.epot
+            epot = particle.mass
             p.ekin = self.beam['energy'] * 1.0e3 - epot  # MeV
 
             # set gamma and kinetic energy

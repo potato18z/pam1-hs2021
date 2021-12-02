@@ -71,6 +71,9 @@ class Bunch(object):
         self.ptype = ptype
         self.ekin = ekin * np.ones((N,), dtype=np.float)
 
+    def getMoments(self):
+        self.sigma = np.cov(self.particles) # get sigma matrix
+        return self.sigma
 
     def __getitem__(self, key):
         """Get one coordinate of all particles
