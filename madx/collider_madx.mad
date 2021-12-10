@@ -1,0 +1,53 @@
+!
+!----- table of elements ----------------------------------------------------
+!
+d   : drift, l = 0.500000;
+db  : drift, l = 1.000000;
+dip : drift, l = 0.120000;
+dti : drift, l = 0.250000;
+dtj : drift, l = 0.250000;
+dtq : drift, l = 0.300000;
+!
+qd0 : quadrupole, l = 0.200000, k1 = -3.310000;
+qd1 : quadrupole, l = 0.200000, k1 = -2.714558;
+qd2 : quadrupole, l = 0.200000, k1 = -2.916965;
+qdm : quadrupole, l = 0.200000, k1 = -2.935029;
+qf0 : quadrupole, l = 0.200000, k1 = 3.280000;
+qf1 : quadrupole, l = 0.200000, k1 = 3.350056;
+qf2 : quadrupole, l = 0.200000, k1 = 3.241853;
+qfm : quadrupole, l = 0.200000, k1 = 3.387166;
+qtd : quadrupole, l = 0.166667, k1 = -4.775152;
+qtf : quadrupole, l = 0.175000, k1 = 5.001325;
+qtm : quadrupole, l = 0.175000, k1 = 3.295071;
+qtn : quadrupole, l = 0.200000, k1 = -1.798667;
+!
+b   : sbend, l = 1.000000, angle = 0.087266, k1 = 0.000000, e1 = 0.000000, e2 = 0.000000;
+!
+o1  : marker;
+o2  : marker;
+o3  : marker;
+o4  : marker;
+!
+!
+!----- table of segments ----------------------------------------------------
+!
+fbdb  : line=(qf0, d, b, d, qd0, d, b, d);
+rfbdb : line=(d, b, d, qd0, d, b, d, qf0);
+matc  : line=(qfm, d, b, d, qdm, d, b, d);
+rmatc : line=(d, b, d, qdm, d, b, d, qfm);
+misb  : line=(qf1, d, db, d, qd1, d, b, d);
+rmisb : line=(d, b, d, qd1, d, db, d, qf1);
+fodo  : line=(qf2, d, db, d, qd2, d, db, d);
+rfodo : line=(d, db, d, qd2, d, db, d, qf2);
+dsup  : line=(fbdb, o1, matc, o2, misb, o3, fodo, o4);
+rdsup : line=(o4, rfodo, 03, rmisb, o2, rmatc, o1, rfbdb);
+arc   : line=(6*rfbdb, d, b, d, qd0, d, b, d, 6*fbdb);
+minib : line=(o4, 2*qtm, 6*dti, qtn, 4*dtj, 2*qtf, dtq, 3*qtd, 5*dip);
+rminib : line=(5*dip, 3*qtd, dtq, 2*qtf, 4*dtj, qtn, 6*dti, 2*qtm, o4);
+iacr  : line=(dsup, minib, rminib, rdsup);
+half  : line=(arc, iacr);
+ring  : line=(half, half);
+!
+beam, particle = electron, energy = 1;
+!
+use, sequence = ring;

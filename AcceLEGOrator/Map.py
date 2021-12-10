@@ -145,7 +145,7 @@ class Dipole(Map):
     # @param scale is the relation between bending angle
     # and edge angle [number from 0 to 1]
     # -----------------------------------------------------
-    def __init__(self, length, b0, phi, scale):
+    def __init__(self, length, b0, phi=0, scale=0):
 
         beta_0  = Physics.getBeta(p.gamma_0)
 

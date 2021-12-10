@@ -39,7 +39,7 @@ class Tracking:
         # calculate phase advance
         mu = np.arccos(np.trace(M_OTM_2x2)/2.)
         # calculate beta, alpha
-        beta = M_OTM_2x2[0,1]/np.sin(mu)
+        beta = np.abs(M_OTM_2x2[0,1]/np.sin(mu))
         alpha = (M_OTM_2x2[0,0]-np.cos(mu))/np.sin(mu)
 
         # eigenvalues, P = la.eig(M_OTM_2x2)
@@ -50,7 +50,7 @@ class Tracking:
         # alpha=-np.real(P[1,0]*np.sqrt(2*beta))
         return alpha, beta
 
-    def getMatchedSigma(cell, ex, ey, ez=None):
+    def getMatchedSigma(cell, ex, ey, sigma_z=None):
         # for x plane
         ax0, bx0 = Tracking.getTwissInitial(cell, axis='x')
         gx0 = (1 + ax0**2) / bx0
@@ -64,8 +64,10 @@ class Tracking:
         Jy = np.matrix([[by0, -ay0],
                         [-ay0, gy0]]) # submatrix in y plane
 
-        if ez is None:
+        if sigma_z is None:
             ez = (ex+ey)/2. # just a default value
+        else:
+            ez = sigma_z
 
         sigma_matched = np.identity(6)
         sigma_matched[0:2, 0:2] = Jx*ex
@@ -76,15 +78,15 @@ class Tracking:
     def trackBunch(bunch, cell, n_cells=1):
         pass
 
-    def trackTwiss(cell, mu, n_cells=1, n_slice=1, twiss_init=None):
+    def trackTwiss(cell, n_cells=1, n_slice=1, twiss_init=None):
         """twiss_init: [ax0, bx0, gx0, ay0, by0, gy0] or None"""
         if twiss_init is None:
             # for x plane
-            ax0, bx0 = Tracking.getTwissInitial(cell, mu, axis='x')
+            ax0, bx0 = Tracking.getTwissInitial(cell, axis='x')
             gx0 = (1 + ax0**2) / bx0
 
             # for y plane
-            ay0, by0 = Tracking.getTwissInitial(cell, mu, axis='y')
+            ay0, by0 = Tracking.getTwissInitial(cell, axis='y')
             gy0 = (1 + ay0**2) / by0
 
             # initial container of the twiss parameters
@@ -149,6 +151,7 @@ class Tracking:
         return sigmas, lengths
 
     def trackDispersion(dispersion, cell, n_cells=1, n_slice=1):
+        """dispersion = [eta_x, eta_px, 1]"""
         dispersion = np.matrix(dispersion).T
         dispersions = copy.deepcopy(dispersion)
 
