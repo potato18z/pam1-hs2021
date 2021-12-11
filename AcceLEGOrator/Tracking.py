@@ -36,7 +36,7 @@ class Tracking:
         # get the initial twiss parameters from 2x2 submatrix of one turn map
         __dict = {'x': 0, 'y': 2}
         M_OTM_2x2 = M_cell[__dict[axis]:__dict[axis]+2, __dict[axis]:__dict[axis]+2]
-        # calculate phase advance
+        #calculate phase advance
         mu = np.arccos(np.trace(M_OTM_2x2)/2.)
         # calculate beta, alpha
         beta = np.abs(M_OTM_2x2[0,1]/np.sin(mu))
